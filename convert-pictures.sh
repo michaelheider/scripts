@@ -35,7 +35,7 @@ trap onError ERR
 # ====== INPUT =======
 
 TARGET_FORMAT=$1
-if ! [[ "$TARGET_FORMAT" =~ ^(jpg)|(png)|(heic)$ ]]; then
+if ! [[ "$TARGET_FORMAT" =~ ^(jpg)|(png)|(heic)|(heif)$ ]]; then
 	echo "Target format not supported. Abort. Target format: $TARGET_FORMAT"
 	exit 1
 fi
@@ -56,7 +56,7 @@ echo "Target: $FOLDER_DEST"
 
 # ===== PICTURES =====
 
-find "$FOLDER_SRC" -maxdepth 1 -iregex ".*\.\(\(jpg\)\|\(jpeg\)\|\(png\)\|\(heic\)\)" -print0 |
+find "$FOLDER_SRC" -maxdepth 1 -iregex ".*\.\(\(jpg\)\|\(jpeg\)\|\(png\)\|\(heic\)\|\(heif\)\)" -print0 |
 	while read -r -d $'\0' f; do
 		echo "$f"
 		name=$(basename "$f")
