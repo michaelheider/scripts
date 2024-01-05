@@ -15,7 +15,7 @@ set -euo pipefail
 # date: 2024-01-05
 
 # check if exiftool installed
-if ! command -v exiftool &> /dev/null; then
+if ! command -v exiftool &>/dev/null; then
         echo "Error: exiftool not installed."
         exit 1
 fi
@@ -29,7 +29,7 @@ fi
 
 echo "work in $DIR"
 
-while IFS= read -r -d '' -u 9; do
+find "$DIR" -type f -print0 | while IFS='' read -r -d $'\0' file; do
         file="$REPLY"
 
         # filter for images
@@ -54,6 +54,6 @@ while IFS= read -r -d '' -u 9; do
                         -ModifyDate-= -ModifyDate="$new_datetime" \
                         -datetimeoriginal-= -datetimeoriginal="$new_datetime"
         fi
-done 9< <(find "$DIR" -type f -exec printf '%s\0' {} +)
+done
 
 echo "Done!"
