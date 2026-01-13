@@ -21,11 +21,14 @@ snap install krita
 snap install xournalpp
 snap install drawio
 apt install texlive-full # LaTeX. ~7GB, may downgrade to texlive-latex-extra (~500MB)
+apt install imagemagick # `convert` command to convert various image file types
+apt install librsvg2-bin # add SVG support to `convert`
 apt install pandoc # general markup converter (md->pdf: `pandoc file.md -o file.pdf`)
 snap install vlc
 apt install file-roller # Archive Manager (nautilus now supports extraction&compression, but not inspection)
 snap install p7zip-desktop
 snap install nextcloud-desktop-client
+apt install insync
 # ProtonMail Bridge: manually from https://proton.me/mail/bridge
 # ETH VPN: Cisco Secure Client: manually from https://sslvpn.ethz.ch/+CSCOE+/logon.html?reason=12&gmsg=666768717261672D617267#form_title_text
 snap install okular
@@ -40,6 +43,7 @@ apt install network-manager-strongswan libcharon-extra-plugins # Swisscom VPN (s
 # Messengers
 snap install telegram-desktop
 snap install mattermost-desktop
+snap install google-chat-electron
 snap install element-desktop
 snap install discord
 # Zoom: manually from https://zoom.us/download
@@ -54,7 +58,7 @@ snap install sqlitebrowser
 apt install phpmyadmin
 apt install nodejs # won't give most recent version
 apt install npm
-npm config set prefix '~/.local' # change setting to avoid permission error (default: `/usr/local`)
+npm config set prefix "$HOME/.local" # change setting to avoid permission error (default: `/usr/local`)
 npm install -g @angular/cli
 # Composer: add `export PATH="$PATH:$HOME/.config/composer/vendor/bin"` to `~/.profile` (instead of what is given in the guide)
 apt install composer
@@ -77,6 +81,17 @@ add-apt-repository ppa:ondrej/php
 apt update
 apt install python3-pip
 # TODO: GDB dashboard
+# add Docker's GPG key:
+apt install ca-certificates curl
+install -m 0755 -d /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+chmod a+r /etc/apt/keyrings/docker.asc
+# add Docker repository to Apt sources:
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(source /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}") stable" | \
+  tee /etc/apt/sources.list.d/docker.list > /dev/null
+apt-get update
 
 # Dev
 apt install wireshark
@@ -88,4 +103,3 @@ apt install aptitude curl htop lshw
 apt install net-tools nmap inetutils-traceroute whois
 apt install iftop nethogs
 apt install ffmpeg
-
