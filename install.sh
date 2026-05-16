@@ -27,8 +27,8 @@ apt install pandoc # general markup converter (md->pdf: `pandoc file.md -o file.
 snap install vlc
 apt install file-roller # Archive Manager (nautilus now supports extraction&compression, but not inspection)
 snap install p7zip-desktop
-snap install nextcloud-desktop-client
-apt install insync
+apt install nextcloud-desktop
+apt install insync # Google Drive sync
 # ProtonMail Bridge: manually from https://proton.me/mail/bridge
 # ETH VPN: Cisco Secure Client: manually from https://sslvpn.ethz.ch/+CSCOE+/logon.html?reason=12&gmsg=666768717261672D617267#form_title_text
 snap install okular
@@ -103,3 +103,4 @@ apt install aptitude curl htop lshw
 apt install net-tools nmap inetutils-traceroute whois
 apt install iftop nethogs
 apt install ffmpeg
+
