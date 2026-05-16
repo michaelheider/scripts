@@ -1,0 +1,31 @@
+# Custom profile for GNOME terminal colors.
+
+# export current color profiles:
+#  dconf dump /org/gnome/terminal/legacy/profiles:/
+# import:
+#  WARNING: This will OVERWRITE the current preferences.
+#  dconf load /org/gnome/terminal/legacy/profiles:/ < file.txt
+
+
+[/]
+default='34a01b74-aca9-4d36-ada1-e28431e44fb9'
+list=['34a01b74-aca9-4d36-ada1-e28431e44fb9']
+
+[:34a01b74-aca9-4d36-ada1-e28431e44fb9]
+background-color='rgb(25,26,27)'
+background-transparency-percent=0
+bold-color='rgb(238,238,238)'
+bold-color-same-as-fg=true
+bold-is-bright=false
+cursor-background-color='rgb(191,191,191)'
+cursor-colors-set=true
+cursor-foreground-color='rgb(25,26,27)'
+foreground-color='rgb(204,204,204)'
+highlight-background-color='rgb(204,204,204)'
+highlight-colors-set=false
+highlight-foreground-color='rgb(25,26,27)'
+palette=['rgb(0,0,0)', 'rgb(205,49,49)', 'rgb(13,188,121)', 'rgb(229,229,16)', 'rgb(36,114,200)', 'rgb(188,63,188)', 'rgb(17,168,205)', 'rgb(229,229,229)', 'rgb(102,102,102)', 'rgb(241,76,76)', 'rgb(35,209,139)', 'rgb(245,245,67)', 'rgb(59,142,234)', 'rgb(214,112,214)', 'rgb(41,184,219)', 'rgb(255,255,255)']
+use-theme-colors=false
+use-theme-transparency=false
+use-transparent-background=true
+visible-name='VS Code Dark 2026'
