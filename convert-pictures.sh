@@ -7,8 +7,8 @@ set -euo pipefail
 # Argument 2: path to folder, absolute or relative to executing shell
 
 # Michael Heider
-# 2022-01-01
-# V1.1
+# 2026-08-02
+# V1.2
 
 # == ERROR HANDLING ==
 
@@ -54,9 +54,9 @@ fi
 mkdir "$FOLDER_DEST"
 echo "Target: $FOLDER_DEST"
 
-# ===== PICTURES =====
+# ===== CONVERT =====
 
-find "$FOLDER_SRC" -maxdepth 1 -iregex ".*\.\(\(jpg\)\|\(jpeg\)\|\(png\)\|\(heic\)\|\(heif\)\)" -print0 |
+find "$FOLDER_SRC" -maxdepth 1 -iregex ".*\.\(\(jpg\)\|\(jpeg\)\|\(png\)\|\(heic\)\|\(heif\)\|\(bmp\)\)" -print0 |
 	while read -r -d $'\0' f; do
 		echo "$f"
 		name=$(basename "$f")
