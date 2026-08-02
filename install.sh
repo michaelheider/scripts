@@ -12,7 +12,16 @@ ln -s /home/michael/.bash_aliases /root/.bash_aliases
 apt update
 apt upgrade
 
-# General Tools
+# CLI TOOLS
+
+# SSH: reconfigure to not hash hosts in `known_hosts`. In `/etc/ssh/ssh_config` set `HashKnownHosts no`.
+apt install aptitude ca-certificates curl htop lshw
+apt install net-tools nmap inetutils-traceroute whois
+apt install iftop nethogs
+apt install ffmpeg
+
+# GENERAL TOOLS
+
 snap install firefox
 snap install bitwarden
 snap install thunderbird
@@ -40,28 +49,33 @@ apt install network-manager-strongswan libcharon-extra-plugins # Swisscom VPN (s
 
 # Duplicati: manually according to https://duplicati.readthedocs.io/en/latest/02-installation/#prerequisites
 
-# Messengers
+# MESSENGERS
+
 snap install telegram-desktop
-snap install mattermost-desktop
+snap install slack
 snap install google-chat-electron
 snap install element-desktop
 snap install discord
 # Zoom: manually from https://zoom.us/download
 
-# Coding
+# CODING
+
 apt install git
 snap install code --classic # VS Code
+
 apt install filezilla
 # Advanced Rest Client (ARC): manually from https://github.com/advanced-rest-client/arc-electron/releases
 apt install sqlite3
 snap install sqlitebrowser
-apt install phpmyadmin
+
 apt install nodejs # won't give most recent version
 apt install npm
 npm config set prefix "$HOME/.local" # change setting to avoid permission error (default: `/usr/local`)
 npm install -g @angular/cli
+
 # Composer: add `export PATH="$PATH:$HOME/.config/composer/vendor/bin"` to `~/.profile` (instead of what is given in the guide)
 apt install composer
+
 # MySQL server. Enable password login.
 apt install mysql-server
 systemctl disable mysql # only run when we need it
@@ -70,37 +84,44 @@ mysql -u root --execute "UPDATE mysql.user SET plugin = 'mysql_native_password' 
     FLUSH PRIVILEGES;"
 service mysql restart
 mysql -u root --execute "ALTER USER 'root'@'localhost' IDENTIFIED BY 'fy6qBq5jI0BOm0LQ';"
+service mysql stop
+
+apt install phpmyadmin
+
 # Linux Valet
 # [uninstall instructions](https://cpriego.github.io/valet-linux/#uninstalling)
 # _not_ [Valet Linux Plus](https://valetlinux.plus/)
 apt install libnss3-tools jq xsel
 composer global require cpriego/valet-linux
 valet install
-# PHP repos
+
+# PHP repo
 add-apt-repository ppa:ondrej/php
 apt update
+
+# Python
+add-apt-repository ppa:deadsnakes/ppa # add all python versions
 apt install python3-pip
+
 # TODO: GDB dashboard
-# add Docker's GPG key:
-apt install ca-certificates curl
+
+# Docker repo
 install -m 0755 -d /etc/apt/keyrings
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
 chmod a+r /etc/apt/keyrings/docker.asc
 # add Docker repository to Apt sources:
-echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
-  $(source /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}") stable" | \
-  tee /etc/apt/sources.list.d/docker.list > /dev/null
-apt-get update
+sudo tee /etc/apt/sources.list.d/docker.sources <<EOF
+Types: deb
+URIs: https://download.docker.com/linux/ubuntu
+Suites: $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}")
+Components: stable
+Architectures: $(dpkg --print-architecture)
+Signed-By: /etc/apt/keyrings/docker.asc
+EOF
+apt update
 
-# Dev
+# DEVELOPMENT
+
 apt install wireshark
 apt install virtualbox
-
-# CLI Tools
-# SSH: reconfigure to not hash hosts in `known_hosts`. In `/etc/ssh/ssh_config` set `HashKnownHosts no`.
-apt install aptitude curl htop lshw
-apt install net-tools nmap inetutils-traceroute whois
-apt install iftop nethogs
-apt install ffmpeg
 
