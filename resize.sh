@@ -82,11 +82,14 @@ find "$FOLDER_SRC" -maxdepth 1 -iregex ".*\.\(\(mov\)\|\(mp4\)\)" -print0 |
 		# fix reversed width/height based on rotation
 		# rotation may be empty string, means 0
 		rotation=$(ffprobe -v error -select_streams v -show_entries stream=:stream_tags=rotate -of csv=p=0:s=x "$f")
+		if [[ "$rotation" == *x ]]; then
+			rotation="${rotation%x}"
+		fi
 		if [ "$rotation" = "" ]; then
 			rotation=0
 		fi
 		if ! { [ "$rotation" = 0 ] || [ "$rotation" = 90 ] || [ "$rotation" = 180 ] || [ "$rotation" = 270 ]; }; then
-			echo "????? BUG IN SCRIPT !!!!!"
+			echo "Error: Rotation value is not a multiple of 90 degrees: $rotation"
 			cleanupOnError
 			exit 1
 		fi
@@ -94,6 +97,12 @@ find "$FOLDER_SRC" -maxdepth 1 -iregex ".*\.\(\(mov\)\|\(mp4\)\)" -print0 |
 			temp=$width
 			width=$height
 			height=$temp
+		fi
+		if [[ "$width" == *x ]]; then
+			width="${width%x}"
+		fi
+		if [[ "$height" == *x ]]; then
+			height="${height%x}"
 		fi
 		if [ "$width" -gt "$MAXRES" ] || [ "$height" -gt "$MAXRES" ]; then
 			# ensure that calculated dimension is divisible by two, since some formats require this
